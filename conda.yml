@@ -1,0 +1,11 @@
+name: sindy
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python==3.10.0
+  - scipy==1.7.3
+  - numpy==1.21.4
+  - matplotlib==3.5.0
+  - yapf==0.31.0
+  - pylint==2.12.2
