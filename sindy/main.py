@@ -1,11 +1,11 @@
 """SINDy implementation for Lorenz equations."""
 
 import logging
-from typing import Tuple
 
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.integrate import solve_ivp
+from typing import Tuple
 
 
 def lorenz(_: float, u: np.ndarray, sigma: float, rho: float,
@@ -13,8 +13,8 @@ def lorenz(_: float, u: np.ndarray, sigma: float, rho: float,
     """Returns a list containing the three functions of the Lorenz equation.
 
     The Lorenz equations have constant coefficients (that don't depend on t),
-    but we still need to have it as a parameter because the integrator expects
-    that.
+    but we still receive t as the first parameter because that's how the
+    integrator works.
     """
     x = u[0]
     y = u[1]
@@ -28,7 +28,7 @@ def lorenz(_: float, u: np.ndarray, sigma: float, rho: float,
 
 def generate_data() -> Tuple[np.ndarray, np.ndarray]:
     """Simulates observed data u with the help of an integrator for the Lorenz
-    equations. Then, calculates the derivatives of u by simply passing it as
+    equations. Then, calculates the derivatives of u by simply passing u as
     a parameter to the Lorenz ODE.
     """
     sigma = 10
@@ -181,6 +181,7 @@ def compute_trajectory(xi: np.ndarray, polynomial_order: int,
 
 
 def style_axis(axis):
+    """Styles a graph's x, y, or z axis."""
     # pylint: disable=protected-access
     axis._axinfo["grid"]["color"] = "#dddddd"
     axis._axinfo["grid"]["linewidth"] = 0.4
@@ -193,6 +194,7 @@ def style_axis(axis):
 
 
 def style_axis3d(axis3d):
+    """Styles a 3D graph."""
     axis3d.set_xlabel("x")
     axis3d.set_ylabel("y")
     axis3d.set_zlabel("z")
