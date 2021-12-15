@@ -52,6 +52,7 @@ def main() -> None:
                      discrete_time=False)
     model.fit(u, t=t)
     model.print()
+    logging.info("xi: %s", model.coefficients().T)
 
     output_file_dir = Path(output_dir, "output.obj")
     with open(output_file_dir, "wb") as file:
