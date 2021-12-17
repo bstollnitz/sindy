@@ -1,5 +1,4 @@
-"""Predicts a trajectory given the output from fitting (which is xi), and
-an initial condition."""
+"""Predicts a trajectory using the SINDy model."""
 
 import argparse
 import logging
@@ -8,24 +7,10 @@ from pathlib import Path
 
 import h5py
 import numpy as np
-import pysindy as ps
 
 from common import DATA_DIR, OUTPUT_DIR, get_absolute_dir
-from utils_graph import graph_results
-
-
-def compute_trajectory(u0: np.ndarray, model: ps.SINDy) -> np.ndarray:
-    """Calculates the trajectory using the model discovered by SINDy.
-    """
-    t0 = 0.001
-    dt = 0.001
-    tmax = 100
-    n = int(tmax / dt + 1)
-    t_eval = np.linspace(start=t0, stop=tmax, num=n)
-
-    u_approximation = model.simulate(u0, t_eval)
-
-    return u_approximation
+# pylint: disable=unused-import
+from utils_graph import graph_results, graph_result_t
 
 
 def main() -> None:
@@ -51,8 +36,10 @@ def main() -> None:
         model = pickle.load(file_read)
 
     center0 = np.array([(269 + 378) / 2, (433 + 464) / 2])
-    centers_approximation = compute_trajectory(center0, model)
-    graph_results(centers, centers_approximation)
+    t = np.linspace(start=0, stop=centers.shape[0], num=centers.shape[0])
+    centers_approximation = model.simulate(center0, t)
+    # graph_results(centers, centers_approximation)
+    graph_result_t(centers, centers_approximation, t)
 
 
 if __name__ == "__main__":
