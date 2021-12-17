@@ -6,7 +6,6 @@ import numpy as np
 # Directory names.
 DATA_DIR = "data"
 OUTPUT_DIR = "output"
-SCORE_INPUT_DIR = "score_input"
 
 # Constants used in the calculation of the Theta matrix of potential terms.
 POLYNOMIAL_ORDER = 2
