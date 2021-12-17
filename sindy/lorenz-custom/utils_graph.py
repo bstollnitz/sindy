@@ -44,7 +44,7 @@ def graph_results(u: np.ndarray, u_approximation: np.ndarray) -> None:
     y = u[0:sample_count, 1]
     z = u[0:sample_count, 2]
     axis3d.plot3D(x, y, z, orange, linewidth=0.4)
-    axis3d.set_title("Original Lorenz trajectory")
+    axis3d.set_title("Original trajectory")
     style_axis3d(axis3d)
 
     # Graph trajectory computed from model discovered by SINDy.
