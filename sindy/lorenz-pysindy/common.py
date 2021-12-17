@@ -5,7 +5,6 @@ from pathlib import Path
 # Directory names.
 DATA_DIR = "data"
 OUTPUT_DIR = "output"
-SCORE_INPUT_DIR = "score_input"
 
 # Constants used in the Sequential Thresholded Least-Squares algorithm.
 THRESHOLD = 0.025

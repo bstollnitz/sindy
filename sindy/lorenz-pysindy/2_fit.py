@@ -16,27 +16,9 @@ from common import (DATA_DIR, MAX_ITERATIONS, OUTPUT_DIR, THRESHOLD,
                     get_absolute_dir)
 
 
-def main() -> None:
-    logging.info("Fitting.")
-    parser = argparse.ArgumentParser()
-
-    default_data_dir = get_absolute_dir(DATA_DIR)
-    parser.add_argument("--data_dir", dest="data_dir", default=default_data_dir)
-
-    default_output_dir = get_absolute_dir(OUTPUT_DIR)
-    parser.add_argument("--output_dir",
-                        dest="output_dir",
-                        default=default_output_dir)
-
-    args = parser.parse_args()
-    data_dir = args.data_dir
-    output_dir = args.output_dir
-
-    data_file_dir = Path(data_dir, "data.hdf5")
-    with h5py.File(data_file_dir, "r") as file_read:
-        u = np.array(file_read.get("u"))
-        t = np.array(file_read.get("t"))
-
+def fit(u: np.ndarray, t: np.ndarray) -> ps.SINDy:
+    """Uses PySINDy to find the equation that best fits the data u.
+    """
     optimizer = STLSQ(threshold=THRESHOLD, max_iter=MAX_ITERATIONS)
 
     # Total variation derivatives with regularization.
@@ -53,6 +35,30 @@ def main() -> None:
     model.fit(u, t=t)
     model.print()
     logging.info("xi: %s", model.coefficients().T)
+
+    return model
+
+
+def main() -> None:
+    logging.info("Fitting.")
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--data_dir",
+                        dest="data_dir",
+                        default=get_absolute_dir(DATA_DIR))
+    parser.add_argument("--output_dir",
+                        dest="output_dir",
+                        default=get_absolute_dir(OUTPUT_DIR))
+    args = parser.parse_args()
+    data_dir = args.data_dir
+    output_dir = args.output_dir
+
+    data_file_dir = Path(data_dir, "data.hdf5")
+    with h5py.File(data_file_dir, "r") as file_read:
+        u = np.array(file_read.get("u"))
+        t = np.array(file_read.get("t"))
+
+    model = fit(u, t)
 
     output_file_dir = Path(output_dir, "output.obj")
     with open(output_file_dir, "wb") as file:

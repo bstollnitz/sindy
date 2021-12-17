@@ -40,16 +40,14 @@ def calculate_regression(theta: np.ndarray, uprime: np.ndarray,
 
 def main() -> None:
     logging.info("Fitting.")
+
     parser = argparse.ArgumentParser()
-
-    default_data_dir = get_absolute_dir(DATA_DIR)
-    parser.add_argument("--data_dir", dest="data_dir", default=default_data_dir)
-
-    default_output_dir = get_absolute_dir(OUTPUT_DIR)
+    parser.add_argument("--data_dir",
+                        dest="data_dir",
+                        default=get_absolute_dir(DATA_DIR))
     parser.add_argument("--output_dir",
                         dest="output_dir",
-                        default=default_output_dir)
-
+                        default=get_absolute_dir(OUTPUT_DIR))
     args = parser.parse_args()
     data_dir = args.data_dir
     output_dir = args.output_dir
@@ -61,7 +59,6 @@ def main() -> None:
 
     theta = create_library(u, POLYNOMIAL_ORDER, USE_TRIG)
     xi = calculate_regression(theta, uprime, THRESHOLD, MAX_ITERATIONS)
-
     logging.info("xi:\n %s", xi)
 
     output_file_dir = Path(output_dir, "output.hdf5")

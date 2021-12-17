@@ -1,5 +1,6 @@
 """Data generation step."""
 
+import argparse
 import logging
 from pathlib import Path
 from typing import Tuple
@@ -9,7 +10,7 @@ import numpy as np
 from derivative import dxdt
 from scipy.integrate import solve_ivp
 
-from common import (DATA_DIR, SIGMA, RHO, BETA, get_absolute_dir)
+from common import BETA, DATA_DIR, RHO, SIGMA, get_absolute_dir
 
 
 def lorenz(_: float, u: np.ndarray, sigma: float, rho: float,
@@ -108,10 +109,16 @@ def generate_data() -> Tuple[np.ndarray, np.ndarray]:
 def main() -> None:
     logging.info("Generating data.")
 
-    (u, uprime) = generate_data()
-    data_dir_path = get_absolute_dir(DATA_DIR, True)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--data_dir",
+                        dest="data_dir",
+                        default=get_absolute_dir(DATA_DIR))
+    args = parser.parse_args()
+    data_dir = args.data_dir
 
-    data_file_path = Path(data_dir_path, "data.hdf5")
+    (u, uprime) = generate_data()
+
+    data_file_path = Path(data_dir, "data.hdf5")
     with h5py.File(data_file_path, "w") as file:
         file.create_dataset(name="u", data=u)
         file.create_dataset(name="uprime", data=uprime)
