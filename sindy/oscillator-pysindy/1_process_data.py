@@ -3,6 +3,7 @@
 import argparse
 import logging
 from pathlib import Path
+import h5py
 
 from common import DATA_DIR, get_absolute_dir
 from utils_video import track_object
@@ -24,6 +25,10 @@ def main() -> None:
     output_file_name = "damped_oscillator_900_tracked.avi"
     output_file_path = str(Path(data_dir, output_file_name))
     centers = track_object(input_file_path, bbox, output_file_path)
+
+    data_file_path = Path(data_dir, "data.hdf5")
+    with h5py.File(data_file_path, "w") as file:
+        file.create_dataset(name="centers", data=centers)
 
 
 if __name__ == "__main__":
