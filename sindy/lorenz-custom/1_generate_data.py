@@ -106,7 +106,7 @@ def generate_data() -> Tuple[np.ndarray, np.ndarray]:
 
 
 def main() -> None:
-    logging.info("Processing data.")
+    logging.info("Generating data.")
 
     (u, uprime) = generate_data()
     data_dir_path = get_absolute_dir(DATA_DIR, True)
