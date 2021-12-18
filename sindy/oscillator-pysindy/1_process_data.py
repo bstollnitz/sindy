@@ -3,7 +3,9 @@
 import argparse
 import logging
 from pathlib import Path
+
 import h5py
+import numpy as np
 
 from common import DATA_DIR, get_absolute_dir
 from utils_video import track_object
@@ -26,9 +28,12 @@ def main() -> None:
     output_file_path = str(Path(data_dir, output_file_name))
     centers = track_object(input_file_path, bbox, output_file_path)
 
+    t = np.arange(stop=centers.shape[0])
+
     data_file_path = Path(data_dir, "data.hdf5")
     with h5py.File(data_file_path, "w") as file:
         file.create_dataset(name="centers", data=centers)
+        file.create_dataset(name="t", data=t)
 
 
 if __name__ == "__main__":
