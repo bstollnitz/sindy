@@ -25,7 +25,7 @@ def calculate_regression(theta: np.ndarray, uprime: np.ndarray,
     xi = np.linalg.lstsq(theta, uprime, rcond=None)[0]
     n = xi.shape[1]
 
-    # Perform regression.
+    # Add sparsity.
     for _ in range(max_iterations):
         small_indices = np.abs(xi) < threshold
         xi[small_indices] = 0
