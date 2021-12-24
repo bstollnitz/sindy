@@ -1,0 +1,6 @@
+{
+    "python.linting.pylintEnabled": true,
+    "python.formatting.provider": "yapf",
+    "editor.formatOnSave": true,
+    "azureML.defaultWorkspaceId": "/subscriptions/92a04f75-fa76-4b98-bc2e-ac45670d4044/resourceGroups/rg-bstollnitz/providers/Microsoft.MachineLearningServices/workspaces/mlws-bstollnitz",
+}
