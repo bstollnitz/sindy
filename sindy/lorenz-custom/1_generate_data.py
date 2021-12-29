@@ -15,7 +15,8 @@ from common import BETA, DATA_DIR, RHO, SIGMA, get_absolute_dir
 
 def lorenz(_: float, u: np.ndarray, sigma: float, rho: float,
            beta: float) -> np.ndarray:
-    """Returns a list containing the three functions of the Lorenz equation.
+    """Returns a list containing values of the three functions of the Lorenz
+    system.
 
     The Lorenz equations have constant coefficients (that don't depend on t),
     but we still receive t as the first parameter because that's how the
@@ -29,6 +30,20 @@ def lorenz(_: float, u: np.ndarray, sigma: float, rho: float,
     dz_dt = x * y - beta * z
 
     return np.hstack((dx_dt, dy_dt, dz_dt))
+
+
+def generate_u(t: np.ndarray) -> np.ndarray:
+    """Simulates observed data u with the help of an integrator for the Lorenz
+    equations.
+    """
+    u0 = np.array([-8, 8, 27])
+    result = solve_ivp(fun=lorenz,
+                       t_span=(t[0], t[-1]),
+                       y0=u0,
+                       t_eval=t,
+                       args=(SIGMA, RHO, BETA))
+    u = result.y.T
+    return u
 
 
 def calculate_exact_derivatives(u: np.ndarray) -> np.ndarray:
@@ -54,7 +69,7 @@ def calculate_finite_difference_derivatives(u: np.ndarray,
 
     Finite difference derivatives are quick and simple to calculate. They
     may not do as well as total variation derivatives at denoising
-    derivatives in general, but in our super simple non-noisy scenario, they
+    derivatives in general, but in our simple non-noisy scenario, they
     do just as well.
     """
     logging.info("Using finite difference derivatives.")
@@ -80,23 +95,16 @@ def calculate_total_variation_derivatives(u: np.ndarray,
 
 
 def generate_data() -> Tuple[np.ndarray, np.ndarray]:
-    """Simulates observed data u with the help of an integrator for the Lorenz
-    equations. Then, calculates the derivatives of u.
+    """ Generates data u, and calculates its derivatives uprime.
     """
     t0 = 0.001
     dt = 0.001
     tmax = 100
     n = int(tmax / dt)
+    t = np.linspace(start=t0, stop=tmax, num=n)
 
     # Step 1: Generate data u.
-    u0 = np.array([-8, 8, 27])
-    t = np.linspace(start=t0, stop=tmax, num=n)
-    result = solve_ivp(fun=lorenz,
-                       t_span=(t0, tmax),
-                       y0=u0,
-                       t_eval=t,
-                       args=(SIGMA, RHO, BETA))
-    u = result.y.T
+    u = generate_u(t)
 
     # Step 2: Calculate u' from u.
     # uprime = calculate_exact_derivatives(u)

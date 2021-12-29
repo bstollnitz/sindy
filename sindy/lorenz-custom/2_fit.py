@@ -14,14 +14,14 @@ from common import (DATA_DIR, OUTPUT_DIR, POLYNOMIAL_ORDER, USE_TRIG, THRESHOLD,
 def calculate_regression(theta: np.ndarray, uprime: np.ndarray,
                          threshold: float, max_iterations: int) -> np.ndarray:
     """Finds a xi matrix that fits theta * xi = uprime, using the sequential
-    threshdolded least-squares algorithm, which is a regression algorithm that
+    thresholded least-squares algorithm, which is a regression algorithm that
     promotes sparsity.
 
     The authors of the SINDy paper designed this algorithm as an alternative
-    to LASSO, because they found LASSO to be unstable algorithmically, and
+    to LASSO, because they found LASSO to be algorithmically unstable, and
     computationally expensive for very large data sets.
     """
-    # Solve Ax = b, theta * xi = uprime.
+    # Solve theta * xi = uprime in the least-squares sense.
     xi = np.linalg.lstsq(theta, uprime, rcond=None)[0]
     n = xi.shape[1]
 

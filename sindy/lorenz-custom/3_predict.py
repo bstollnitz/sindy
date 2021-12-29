@@ -16,9 +16,10 @@ from utils_graph import graph_results
 
 def lorenz_approximation(_: float, u: np.ndarray, xi: np.ndarray,
                          polynomial_order: int, use_trig: bool) -> np.ndarray:
-    """For each 1 x 3 u vector, this function calculates the corresponding
+    """For a given 1 x 3 u vector, this function calculates the corresponding
     1 x n row of the theta matrix, and multiples that theta row by the n x 3 xi.
-    The result is the corresponding 1 x 3 du/dt vector."""
+    The result is the corresponding 1 x 3 du/dt vector.
+    """
     theta = create_library(u.reshape((1, 3)), polynomial_order, use_trig)
     return theta @ xi
 
@@ -28,22 +29,21 @@ def compute_trajectory(u0: np.ndarray, xi: np.ndarray, polynomial_order: int,
     """Calculates the trajectory of the model discovered by SINDy.
 
     Given an initial value for u, we call the lorenz_approximation function
-    to calculate the corresponding du/dt. Then, using a
-    numerical method, solve_ivp uses that derivative to calculate the next
-    value of u, using the xi matrix discovered by SINDy.
-    This process repeats, until we have all values of the u
-    trajectory.
+    to calculate the corresponding du/dt. Then, using a numerical method,
+    solve_ivp uses that derivative to calculate the next value of u, using the
+    xi matrix discovered by SINDy. This process repeats, until we have all
+    values of the u trajectory.
     """
     t0 = 0.001
     dt = 0.001
     tmax = 100
     n = int(tmax / dt + 1)
 
-    t_eval = np.linspace(start=t0, stop=tmax, num=n)
+    t = np.linspace(start=t0, stop=tmax, num=n)
     result = solve_ivp(fun=lorenz_approximation,
                        t_span=(t0, tmax),
                        y0=u0,
-                       t_eval=t_eval,
+                       t_eval=t,
                        args=(xi, polynomial_order, use_trig))
     u = result.y.T
 

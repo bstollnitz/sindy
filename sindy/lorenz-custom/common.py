@@ -23,11 +23,11 @@ BETA = 8 / 3
 
 def create_library(u: np.ndarray, polynomial_order: int,
                    use_trig: bool) -> np.ndarray:
-    """Creates a matrix containing a library of potential equation terms.
+    """Creates a matrix containing a library of candidate functions.
 
     For example, if our u depends on x, y, and z, and we specify
     polynomial_order=2 and use_trig=false, our terms would be:
-    1, x, y, z, x^2, xy, xz, yz, y^2, z^2.
+    1, x, y, z, x^2, xy, xz, y^2, yz, z^2.
     """
     (m, n) = u.shape
     theta = np.ones((m, 1))
