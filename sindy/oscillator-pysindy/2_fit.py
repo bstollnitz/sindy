@@ -72,10 +72,10 @@ def main() -> None:
 
     data_file_dir = Path(data_dir, "data.hdf5")
     with h5py.File(data_file_dir, "r") as file_read:
-        centers = np.array(file_read.get("centers"))
+        u = np.array(file_read.get("u"))
         t = np.array(file_read.get("t"))
 
-    (modelx, modely, xdot, ydot) = fit(centers, t)
+    (modelx, modely, xdot, ydot) = fit(u, t)
 
     output_file_dir = Path(output_dir, "models.pkl")
     with open(output_file_dir, "wb") as file:

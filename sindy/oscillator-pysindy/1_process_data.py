@@ -26,13 +26,13 @@ def main() -> None:
     bbox = (269, 433, 378, 464)
     output_file_name = "damped_oscillator_900_tracked.avi"
     output_file_path = str(Path(data_dir, output_file_name))
-    centers = track_object(input_file_path, bbox, output_file_path)
+    u = track_object(input_file_path, bbox, output_file_path)
 
-    t = np.arange(stop=centers.shape[0])
+    t = np.arange(stop=u.shape[0])
 
     data_file_path = Path(data_dir, "data.hdf5")
     with h5py.File(data_file_path, "w") as file:
-        file.create_dataset(name="centers", data=centers)
+        file.create_dataset(name="u", data=u)
         file.create_dataset(name="t", data=t)
 
 

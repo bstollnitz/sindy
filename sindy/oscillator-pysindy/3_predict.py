@@ -28,7 +28,7 @@ def main() -> None:
 
     data_file_path = Path(data_dir, "data.hdf5")
     with h5py.File(data_file_path, "r") as file_read:
-        centers = np.array(file_read.get("centers"))
+        u = np.array(file_read.get("u"))
         t = np.array(file_read.get("t"))
 
     models_file_path = Path(output_dir, "models.pkl")
@@ -40,13 +40,13 @@ def main() -> None:
         xdot = np.array(file_read.get("xdot"))
         ydot = np.array(file_read.get("ydot"))
 
-    u0x = np.array([centers[0, 0], xdot[0, 0]])
-    centers_approximation_x = modelx.simulate(u0x, t)
+    u0x = np.array([u[0, 0], xdot[0, 0]])
+    u_approximation_x = modelx.simulate(u0x, t)
 
-    u0y = np.array([centers[0, 1], ydot[0, 0]])
-    centers_approximation_y = modely.simulate(u0y, t)
+    u0y = np.array([u[0, 1], ydot[0, 0]])
+    u_approximation_y = modely.simulate(u0y, t)
 
-    graph_result(centers, centers_approximation_x, centers_approximation_y, t)
+    graph_result(u, u_approximation_x, u_approximation_y, t)
 
 
 if __name__ == "__main__":
