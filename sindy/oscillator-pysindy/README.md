@@ -1,6 +1,6 @@
 # Discovering equations from data using SINDy
 
-For a detailed explanation of the code in this folder, check out the accompanying blog post: [Discovering equations from data using SINDy](https://bea.stollnitz.com/blog/sindy-lorenz/).
+For a detailed explanation of the code in this folder, check out the accompanying blog post: [Using PySINDy to discover equations from experimental data](https://bea.stollnitz.com/blog/oscillator-pysindy/).
 
 
 ## How to run this code on a GitHub Codespace

@@ -1,0 +1,17 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.209.6/containers/python-3-miniconda
+{
+	"name": "Miniconda (Python 3)",
+	"build": {
+		"context": "..",
+		"dockerfile": "Dockerfile",
+	},
+	"settings": {
+		"python.defaultInterpreterPath": "/opt/conda/bin/python",
+	},
+	"extensions": [
+		"ms-python.python",
+		"ms-python.vscode-pylance",
+	],
+	"remoteUser": "vscode",
+}
