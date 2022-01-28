@@ -128,9 +128,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-/sindy/lorenz-custom/data/
-/sindy/lorenz-custom/output/
-/sindy/lorenz-pysindy/data/
-/sindy/lorenz-pysindy/output/
-/sindy/oscillator-pysindy/data/
-/sindy/oscillator-pysindy/output/
+data/
+output/
