@@ -8,7 +8,7 @@ from pathlib import Path
 import h5py
 import numpy as np
 
-from common import DATA_DIR, OUTPUT_DIR, get_absolute_dir
+from common import DATA_DIR, OUTPUT_DIR
 from utils_graph import graph_result
 
 
@@ -16,12 +16,8 @@ def main() -> None:
     logging.info("Predicting.")
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data_dir",
-                        dest="data_dir",
-                        default=get_absolute_dir(DATA_DIR))
-    parser.add_argument("--output_dir",
-                        dest="output_dir",
-                        default=get_absolute_dir(OUTPUT_DIR))
+    parser.add_argument("--data_dir", dest="data_dir", default=DATA_DIR)
+    parser.add_argument("--output_dir", dest="output_dir", default=OUTPUT_DIR)
     args = parser.parse_args()
     data_dir = args.data_dir
     output_dir = args.output_dir

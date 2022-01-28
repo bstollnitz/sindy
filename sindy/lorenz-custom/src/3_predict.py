@@ -64,7 +64,6 @@ def main() -> None:
     with h5py.File(data_file_dir, "r") as file_read:
         u = np.array(file_read.get("u"))
 
-    Path(output_dir).mkdir(exist_ok=True)
     output_file_dir = Path(output_dir, "output.hdf5")
     with h5py.File(output_file_dir, "r") as file_read:
         xi = np.array(file_read.get("xi"))
