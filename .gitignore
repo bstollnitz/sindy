@@ -130,3 +130,5 @@ dmypy.json
 
 /sindy/lorenz-custom/data/
 /sindy/lorenz-custom/output/
+/sindy/lorenz-pysindy/data/
+/sindy/lorenz-pysindy/output/

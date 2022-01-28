@@ -12,8 +12,7 @@ import pysindy as ps
 from pysindy.differentiation import FiniteDifference, SINDyDerivative
 from pysindy.optimizers import STLSQ
 
-from common import (DATA_DIR, MAX_ITERATIONS, OUTPUT_DIR, THRESHOLD,
-                    get_absolute_dir)
+from common import (DATA_DIR, MAX_ITERATIONS, OUTPUT_DIR, THRESHOLD)
 
 
 def fit(u: np.ndarray, t: np.ndarray) -> ps.SINDy:
@@ -43,12 +42,8 @@ def main() -> None:
     logging.info("Fitting.")
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data_dir",
-                        dest="data_dir",
-                        default=get_absolute_dir(DATA_DIR))
-    parser.add_argument("--output_dir",
-                        dest="output_dir",
-                        default=get_absolute_dir(OUTPUT_DIR))
+    parser.add_argument("--data_dir", dest="data_dir", default=DATA_DIR)
+    parser.add_argument("--output_dir", dest="output_dir", default=OUTPUT_DIR)
     args = parser.parse_args()
     data_dir = args.data_dir
     output_dir = args.output_dir
@@ -60,6 +55,7 @@ def main() -> None:
 
     model = fit(u, t)
 
+    Path(output_dir).mkdir(exist_ok=True)
     output_file_dir = Path(output_dir, "output.obj")
     with open(output_file_dir, "wb") as file:
         pickle.dump(model, file)

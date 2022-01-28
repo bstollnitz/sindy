@@ -10,7 +10,7 @@ import h5py
 import numpy as np
 import pysindy as ps
 
-from common import DATA_DIR, OUTPUT_DIR, get_absolute_dir
+from common import DATA_DIR, OUTPUT_DIR
 from utils_graph import graph_results
 
 
@@ -32,12 +32,8 @@ def main() -> None:
     logging.info("Predicting.")
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data_dir",
-                        dest="data_dir",
-                        default=get_absolute_dir(DATA_DIR))
-    parser.add_argument("--output_dir",
-                        dest="output_dir",
-                        default=get_absolute_dir(OUTPUT_DIR))
+    parser.add_argument("--data_dir", dest="data_dir", default=DATA_DIR)
+    parser.add_argument("--output_dir", dest="output_dir", default=OUTPUT_DIR)
     args = parser.parse_args()
     data_dir = args.data_dir
     output_dir = args.output_dir
@@ -46,6 +42,7 @@ def main() -> None:
     with h5py.File(data_file_dir, "r") as file_read:
         u = np.array(file_read.get("u"))
 
+    Path(output_dir).mkdir(exist_ok=True)
     output_file_dir = Path(output_dir, "output.obj")
     with open(output_file_dir, "rb") as file_read:
         model = pickle.load(file_read)
