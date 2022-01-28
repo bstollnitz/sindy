@@ -8,7 +8,7 @@ import h5py
 import numpy as np
 
 from common import (DATA_DIR, OUTPUT_DIR, POLYNOMIAL_ORDER, USE_TRIG, THRESHOLD,
-                    MAX_ITERATIONS, create_library, get_absolute_dir)
+                    MAX_ITERATIONS, create_library)
 
 
 def calculate_regression(theta: np.ndarray, uprime: np.ndarray,
@@ -42,12 +42,8 @@ def main() -> None:
     logging.info("Fitting.")
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data_dir",
-                        dest="data_dir",
-                        default=get_absolute_dir(DATA_DIR))
-    parser.add_argument("--output_dir",
-                        dest="output_dir",
-                        default=get_absolute_dir(OUTPUT_DIR))
+    parser.add_argument("--data_dir", dest="data_dir", default=DATA_DIR)
+    parser.add_argument("--output_dir", dest="output_dir", default=OUTPUT_DIR)
     args = parser.parse_args()
     data_dir = args.data_dir
     output_dir = args.output_dir
@@ -61,6 +57,7 @@ def main() -> None:
     xi = calculate_regression(theta, uprime, THRESHOLD, MAX_ITERATIONS)
     logging.info("xi:\n %s", xi)
 
+    Path(output_dir).mkdir(exist_ok=True)
     output_file_dir = Path(output_dir, "output.hdf5")
     with h5py.File(output_file_dir, "w") as file:
         file.create_dataset(name="xi", data=xi)

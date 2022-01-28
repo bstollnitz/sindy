@@ -1,11 +1,10 @@
 "Constants and common code."
 
-from pathlib import Path
 import numpy as np
 
 # Directory names.
-DATA_DIR = "data"
-OUTPUT_DIR = "output"
+DATA_DIR = "sindy/lorenz-custom/data"
+OUTPUT_DIR = "sindy/lorenz-custom/output"
 
 # Constants used in the calculation of the Theta matrix of potential terms.
 POLYNOMIAL_ORDER = 2
@@ -75,17 +74,3 @@ def create_library(u: np.ndarray, polynomial_order: int,
             theta = np.hstack((theta, np.sin(i * u), np.cos(i * u)))
 
     return theta
-
-
-def get_absolute_dir(dir_name: str, create_dir: bool = True) -> Path:
-    """Creates a directory with the specified name in a location relative to
-    the code file, and returns the absolute path to that directory.
-    
-    This way, the behavior of our code will be the same, regardless of the
-    location from where we run the project.
-    """
-    parent_path = Path(__file__).parent
-    path = Path(parent_path, dir_name).resolve()
-    if create_dir:
-        path.mkdir(exist_ok=True, parents=True)
-    return path

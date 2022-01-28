@@ -10,7 +10,7 @@ import numpy as np
 from scipy.integrate import solve_ivp
 
 from common import (DATA_DIR, OUTPUT_DIR, POLYNOMIAL_ORDER, USE_TRIG,
-                    create_library, get_absolute_dir)
+                    create_library)
 from utils_graph import graph_results
 
 
@@ -54,12 +54,8 @@ def main() -> None:
     logging.info("Predicting.")
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data_dir",
-                        dest="data_dir",
-                        default=get_absolute_dir(DATA_DIR))
-    parser.add_argument("--output_dir",
-                        dest="output_dir",
-                        default=get_absolute_dir(OUTPUT_DIR))
+    parser.add_argument("--data_dir", dest="data_dir", default=DATA_DIR)
+    parser.add_argument("--output_dir", dest="output_dir", default=OUTPUT_DIR)
     args = parser.parse_args()
     data_dir = args.data_dir
     output_dir = args.output_dir

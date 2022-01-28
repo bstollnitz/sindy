@@ -10,7 +10,7 @@ import numpy as np
 from derivative import dxdt
 from scipy.integrate import solve_ivp
 
-from common import BETA, DATA_DIR, RHO, SIGMA, get_absolute_dir
+from common import BETA, DATA_DIR, RHO, SIGMA
 
 
 def lorenz(_: float, u: np.ndarray, sigma: float, rho: float,
@@ -118,14 +118,13 @@ def main() -> None:
     logging.info("Generating data.")
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data_dir",
-                        dest="data_dir",
-                        default=get_absolute_dir(DATA_DIR))
+    parser.add_argument("--data_dir", dest="data_dir", default=DATA_DIR)
     args = parser.parse_args()
     data_dir = args.data_dir
 
     (u, uprime) = generate_data()
 
+    Path(data_dir).mkdir(exist_ok=True)
     data_file_path = Path(data_dir, "data.hdf5")
     with h5py.File(data_file_path, "w") as file:
         file.create_dataset(name="u", data=u)
