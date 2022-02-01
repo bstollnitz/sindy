@@ -1,10 +1,11 @@
 "Constants and common code."
 
 import numpy as np
+from pathlib import Path
 
 # Directory names.
-DATA_DIR = "sindy/lorenz-custom/data"
-OUTPUT_DIR = "sindy/lorenz-custom/output"
+DATA_DIR = str(Path(Path(__file__).parent.parent, "data"))
+OUTPUT_DIR = str(Path(Path(__file__).parent.parent, "output"))
 
 # Constants used in the calculation of the Theta matrix of potential terms.
 POLYNOMIAL_ORDER = 2
