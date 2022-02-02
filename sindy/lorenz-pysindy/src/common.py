@@ -1,8 +1,10 @@
 "Constants and common code."
 
+from pathlib import Path
+
 # Directory names.
-DATA_DIR = "sindy/lorenz-pysindy/data"
-OUTPUT_DIR = "sindy/lorenz-pysindy/output"
+DATA_DIR = str(Path(Path(__file__).parent.parent, "data"))
+OUTPUT_DIR = str(Path(Path(__file__).parent.parent, "output"))
 
 # Constants used in the Sequential Thresholded Least-Squares algorithm.
 THRESHOLD = 0.025
