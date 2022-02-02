@@ -3,6 +3,7 @@
 import argparse
 import logging
 import pickle
+import sys
 from pathlib import Path
 
 import h5py
@@ -18,7 +19,8 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--data_dir", dest="data_dir", default=DATA_DIR)
     parser.add_argument("--output_dir", dest="output_dir", default=OUTPUT_DIR)
-    args = parser.parse_args()
+    argv = [] if ("ipykernel_launcher" in sys.argv[0]) else sys.argv
+    args = parser.parse_args(argv)
     data_dir = args.data_dir
     output_dir = args.output_dir
 

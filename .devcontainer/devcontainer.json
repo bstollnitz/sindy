@@ -8,7 +8,6 @@
 	},
 	"settings": {
 		"python.defaultInterpreterPath": "/opt/conda/bin/python",
-		"terminal.integrated.defaultProfile.linux": "zsh",
 	},
 	"extensions": [
 		"ms-python.python",
