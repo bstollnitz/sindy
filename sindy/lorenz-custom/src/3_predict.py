@@ -1,8 +1,11 @@
 """Predicts a trajectory given the output from fitting (which is xi), and
 an initial condition."""
 
+# %%
+
 import argparse
 import logging
+import sys
 from pathlib import Path
 
 import h5py
@@ -56,7 +59,8 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--data_dir", dest="data_dir", default=DATA_DIR)
     parser.add_argument("--output_dir", dest="output_dir", default=OUTPUT_DIR)
-    args = parser.parse_args()
+    argv = [] if sys.argv[0] == "ipykernel_launcher" else sys.argv
+    args = parser.parse_args(argv)
     data_dir = args.data_dir
     output_dir = args.output_dir
 
@@ -76,3 +80,5 @@ def main() -> None:
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     main()
+
+# %%
