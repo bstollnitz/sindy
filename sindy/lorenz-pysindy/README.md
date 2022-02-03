@@ -24,4 +24,6 @@ conda activate sindy
 Within VS code, open the following files and press F5 to run them, in this order:
 * 1_generate_data.py
 * 2_fit.py
+
+The last file shows a matplotlib graph. If you're running locally, you can press F5, and a window opens showing the graph. If you're running on Codespaces, you need to display the graph on a VS Code Interactive Window, which you can do by opening the Command Palette (Ctrl + Shift + P) and choosing "Jupyter: Run Current File in Interactive Window".
 * 3_predict.py
