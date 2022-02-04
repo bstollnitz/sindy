@@ -6,11 +6,13 @@
 		"context": "..",
 		"dockerfile": "Dockerfile",
 	},
-	"settings": {
-	},
+	"settings": {},
 	"extensions": [
 		"ms-python.python",
 		"ms-python.vscode-pylance",
 	],
+	"hostRequirements": {
+		"memory": "8gb",
+	},
 	"remoteUser": "vscode",
 }
