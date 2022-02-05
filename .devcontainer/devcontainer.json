@@ -6,7 +6,9 @@
 		"context": "..",
 		"dockerfile": "Dockerfile",
 	},
-	"settings": {},
+	"settings": {
+		"python.defaultInterpreterPath": "/opt/conda/bin/python",
+	},
 	"extensions": [
 		"ms-python.python",
 		"ms-python.vscode-pylance",
