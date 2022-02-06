@@ -2,4 +2,7 @@
     "python.linting.pylintEnabled": true,
     "python.formatting.provider": "yapf",
     "editor.formatOnSave": true,
+    "editor.rulers": [
+        80
+    ],
 }

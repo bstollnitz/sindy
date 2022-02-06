@@ -57,8 +57,10 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--data_dir", dest="data_dir", default=DATA_DIR)
     parser.add_argument("--output_dir", dest="output_dir", default=OUTPUT_DIR)
-    argv = [] if ("ipykernel_launcher" in sys.argv[0]) else sys.argv
-    args = parser.parse_args(argv)
+    # argv = [] if ("ipykernel_launcher" in sys.argv[0]) else sys.argv
+    # args = parser.parse_args(argv)
+    args = parser.parse_args()
+
     data_dir = args.data_dir
     output_dir = args.output_dir
 
