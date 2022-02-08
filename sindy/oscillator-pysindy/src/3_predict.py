@@ -5,6 +5,7 @@ import logging
 import pickle
 import sys
 from pathlib import Path
+from IPython import get_ipython
 
 import h5py
 import numpy as np
@@ -19,7 +20,8 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--data_dir", dest="data_dir", default=DATA_DIR)
     parser.add_argument("--output_dir", dest="output_dir", default=OUTPUT_DIR)
-    argv = [] if ("ipykernel_launcher" in sys.argv[0]) else sys.argv
+    shell = get_ipython().__class__.__name__
+    argv = [] if (shell == "ZMQInteractiveShell") else sys.argv
     args = parser.parse_args(argv)
     data_dir = args.data_dir
     output_dir = args.output_dir
