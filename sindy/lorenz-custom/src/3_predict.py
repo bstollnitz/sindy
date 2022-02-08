@@ -5,11 +5,11 @@ import argparse
 import logging
 import sys
 from pathlib import Path
-from IPython import get_ipython
 
 import h5py
 import numpy as np
 from scipy.integrate import solve_ivp
+from IPython import get_ipython
 
 from common import (DATA_DIR, OUTPUT_DIR, POLYNOMIAL_ORDER, USE_TRIG,
                     create_library)
@@ -59,7 +59,7 @@ def main() -> None:
     parser.add_argument("--data_dir", dest="data_dir", default=DATA_DIR)
     parser.add_argument("--output_dir", dest="output_dir", default=OUTPUT_DIR)
     shell = get_ipython().__class__.__name__
-    argv = [] if (shell == "ZMQInteractiveShell") else sys.argv
+    argv = [] if (shell == "ZMQInteractiveShell") else sys.argv[1:]
     args = parser.parse_args(argv)
 
     data_dir = args.data_dir
