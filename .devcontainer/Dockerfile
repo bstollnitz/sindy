@@ -5,6 +5,6 @@ FROM mcr.microsoft.com/vscode/devcontainers/miniconda:0-3
 RUN apt-get update
 RUN apt-get install libgl1 -y
 
-# Update the conda environment according to the conda.yml file in the project.
-COPY conda.yml /tmp/conda-tmp/
-RUN /opt/conda/bin/conda env update -n base -f /tmp/conda-tmp/conda.yml && rm -rf /tmp/conda-tmp
+# Update the conda environment according to the environment.yml file in the project.
+COPY environment.yml /tmp/conda-tmp/
+RUN /opt/conda/bin/conda env update -n base -f /tmp/conda-tmp/environment.yml && rm -rf /tmp/conda-tmp
