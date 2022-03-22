@@ -1,5 +1,5 @@
 # See here for image contents: https://github.com/microsoft/vscode-dev-containers/tree/v0.209.6/containers/python-3-miniconda/.devcontainer/base.Dockerfile
-FROM mcr.microsoft.com/vscode/devcontainers/miniconda:0-3
+FROM mcr.microsoft.com/vscode/devcontainers/miniconda:0.202.1-3
 
 # Install dependencies of OpenCV that don't come with it.
 RUN apt-get update
